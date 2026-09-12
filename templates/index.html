@@ -1,0 +1,169 @@
+<!-- templates/index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Network Attack Predictor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Network Attack Predictor</h1>
+    <form action="/predict" method="post">
+        <div class="form-group">
+            <h3>Enter 10 Network Features</h3>
+            {% for i in range(10) %}
+            <label for="feature_{{ i }}">Feature {{ i+1 }}:</label>
+            <input type="number" step="any" name="feature_{{ i }}" required>
+            {% endfor %}
+        </div>
+        <button type="submit">Predict</button>
+    </form>
+</body>
+</html> -->
+
+
+
+
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Network Attack Predictor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        .feature-description {
+            font-size: 0.8em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .note {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Network Attack Predictor</h1>
+    
+    <div class="note">
+        <strong>Important:</strong> Please select or input values carefully. 
+        Some features require normalized inputs between 0 and 1.
+    </div>
+
+    <form action="/predict" method="post">
+        <div class="form-group">
+            <h3>Enter Network Traffic Features</h3>
+            
+            <label for="feature_0">Duration (0-1 scale)</label>
+            <div class="feature-description">Normalized connection duration</div>
+            <input type="number" min="0" max="100" step="0.01" name="feature_0" required>
+
+            <label for="feature_1">Protocol Type</label>
+            <div class="feature-description">Select network protocol</div>
+            <select name="feature_1" required>
+                <option value="0.0">TCP</option>
+                <option value="0.33">UDP</option>
+                <option value="0.66">ICMP</option>
+                <option value="1.0">Other</option>
+            </select>
+
+            <label for="feature_2">Service</label>
+            <div class="feature-description">Select network service</div>
+            <select name="feature_2" required>
+                <option value="0.0">HTTP</option>
+                <option value="0.2">FTP</option>
+                <option value="0.4">SSH</option>
+                <option value="0.6">Telnet</option>
+                <option value="0.8">SMTP</option>
+                <option value="1.0">Other</option>
+            </select>
+
+            <label for="feature_3">Flag Status (0-1 scale)</label>
+            <div class="feature-description">Normalized connection flag status</div>
+            <input type="number" min="0" max="100" step="0.01" name="feature_3" required>
+
+            <label for="feature_4">Source Bytes (0-1 scale)</label>
+            <div class="feature-description">Normalized bytes sent from source</div>
+            <input type="number" min="0" max="100" step="0.01" name="feature_4" required>
+
+            <label for="feature_5">Destination Bytes (0-1 scale)</label>
+            <div class="feature-description">Normalized bytes sent to destination</div>
+            <input type="number" min="0" max="100" step="0.01" name="feature_5" required>
+
+            <label for="feature_6">Land Connection</label>
+            <div class="feature-description">0 = Different host/port, 1 = Same host/port</div>
+            <select name="feature_6" required>
+                <option value="0">Different Host/Port</option>
+                <option value="1">Same Host/Port</option>
+            </select>
+
+            <label for="feature_7">Wrong Fragments (0-1 scale)</label>
+            <div class="feature-description">Normalized count of wrong fragments</div>
+            <input type="number" min="0" max="100" step="0.01" name="feature_7" required>
+
+            <label for="feature_8">Urgent Packets (0-1 scale)</label>
+            <div class="feature-description">Normalized count of urgent packets</div>
+            <input type="number" min="0" max="100" step="0.01" name="feature_8" required>
+
+            <label for="feature_9">Hot Indicators (0-1 scale)</label>
+            <div class="feature-description">Normalized intrusion attempt indicators</div>
+            <input type="number" min="0" max="100" step="0.01" name="feature_9" required>
+        </div>
+        <button type="submit">Predict Network Attack</button>
+    </form>
+</body>
+</html>
+
+
